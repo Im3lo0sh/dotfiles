@@ -1,0 +1,17 @@
+*~
+*.swp
+*.swo
+.vim/spell
+.config/mpd/*
+!.config/mpd/mpd.conf
+.config/ranger/__pycache__/*
+.config/ranger/history
+.config/ranger/bookmarks
+.config/ranger/tagged
+.ncmpcpp/error.log
+.vimperator/info/default/*
+!.vimperator/info/default/quickmarks
+<<<<<<< HEAD
+.vim/.netrwhist
+=======
+>>>>>>> 1d96275639335187c6c7445a5e0bdd3d00f41140
