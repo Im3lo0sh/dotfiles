@@ -20,7 +20,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -dmenu'
 
 # neofetch
-bindsym $sup+k exec xterm -hold -e /usr/bin/neofetch --image ~/Pictures/Profile.png --crop_mode fill --battery_num 0 
+bindsym $sup+k exec xterm -hold -e /usr/bin/neofetch --image ~/Pictures/Profile.png --crop_mode fill --battery_num 0 --config ~/.config/neofetch/config
 
 # change focus
 bindsym $mod+Left focus left
@@ -122,10 +122,10 @@ set $power_control "[l]ock log[o]ut [s]uspend [h]ibernate [r]eboot [p]oweroff"
 mode $power_control {
     bindsym l exec ~/.i3/lock.sh; mode "default"
     bindsym o exec i3-msg exit; mode "default"
-    bindsym s exec systemctl suspend; mode "default"
-    bindsym h exec systemctl hibernate; mode "default"
-    bindsym r exec systemctl reboot; mode "default"
-    bindsym p exec systemctl poweroff; mode "default"
+    bindsym s exec gksudo pm-suspend; mode "default"
+    bindsym h exec gksudo pm-hibernate; mode "default"
+    bindsym r exec gksudo reboot; mode "default"
+    bindsym p exec gksudo poweroff; mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -209,6 +209,6 @@ exec --no-startup-id mpDris2
 exec --no-startup-id xautolock -time 5 -locker /usr/bin/i3lock-fancy
 # Compositor
 exec --no-startup-id compton -b --config ~/.compton.conf
-
 # Wallpaper
 exec --no-startup-id feh --bg-fill ~/Pictures/Wallpaper.png
+

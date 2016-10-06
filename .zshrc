@@ -7,12 +7,6 @@ else
     alias vim='nvim'
     alias vimdiff='nvim -d'
 fi
-
-# theme
-autoload -Uz promptinit
-promptinit
-prompt agnoster
-
 # dircolors
 eval "`dircolors -b ~/.dircolors`"
 
@@ -31,36 +25,17 @@ alias dh='dirs -v'
 TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
 export REPORTTIME=5
 
-# systemd aliases and functions
-alias t3='sudo systemctl isolate multi-user.target'
-alias t5='sudo systemctl isolate graphical.target'
-
-listd() {
-	echo -e ${BLD}${RED}" --> SYSTEM LEVEL <--"${NRM}
-	find /etc/systemd/system -mindepth 1 -type d | sed '/getty.target/d' | xargs ls -gG --color
-	[[ $(find $HOME/.config/systemd/user -mindepth 1 -type d | wc -l) -eq 0 ]] ||
-		(echo -e ${BLD}${RED}" --> USER LEVEL <--"${NRM} ; \
-		find $HOME/.config/systemd/user -mindepth 1 -type d | xargs ls -gG --color)
-}
-
-# systemlevel
-start() { sudo systemctl start $1; }
-stop() { sudo systemctl stop $1; }
-restart() { sudo systemctl restart $1; }
-status() { sudo systemctl status $1; }
-enabled() { sudo systemctl enable $1; listd; }
-disabled() { sudo systemctl disable $1; listd; }
-
-Start() { sudo systemctl start $1; sudo systemctl status $1; }
-Stop() { sudo systemctl stop $1; sudo systemctl status $1; }
-Restart() { sudo systemctl restart $1; sudo systemctl status $1; }
-
-# userlevel
-ustart() { systemctl --user start $1; }
-ustop() { systemctl --user stop $1; }
-ustatus() { systemctl --user status $1; }
-uenable() { systemctl --user enable $1; }
-udisable() { systemctl --user disable $1; } 
+# openrc
+listd() { rc-status $1; }
+start() { sudo rc-service $1 start; }
+stop() { sudo rc-service $1 stop; }
+restart() { sudo rc-service $1 restart; }
+status() { sudo rc-service $1 status; }
+enabled() { sudo rc-update add $1 $2; listd $2 }
+disabled() { sudo rc-update del $1 $2; listd $2 }
+Start() { sudo rc-service $1 start; sudo rc-service $1 status; }
+Stop() { sudo rc-service $1 stop; sudo rc-service $1 status; }
+Restart() { sudo rc-service $1 restart; rc-service $1 status; }
 
 # general aliases and functions
 alias pg='echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND" && ps aux | grep --color=auto -i'
@@ -71,7 +46,7 @@ alias sudo='sudo '
 alias wget='wget -c'
 alias grep='grep --color=auto'
 alias zgrep='zgrep --color=auto'
-alias ls='ls --group-directories-first --color'
+alias ls='ls --group-directories-first --color=auto'
 alias ll='ls -lhF'
 alias la='ls -lha'
 alias dir='ls -lhA'
@@ -81,13 +56,22 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias du='du -ach'
-alias dus='du | sort -h'
+alias dus='du -ach | sort -h'
+alias df='df --si'
 alias c='clear'
 alias free='free -mt'
 alias fhere='find . -name '
 alias diff='diff --color=auto'
 alias rm='rm -i'
 alias mv='mv -i'
+alias reboot='sudo reboot '
+alias shutdown='sudo shutdown '
+alias poweroff='sudo poweroff '
+alias halt='sudo halt '
+alias hibernate='sudo pm-hibernate '
+alias suspend='sudo pm-suspend '
+alias dmesg='dmesg --color=auto'
+alias wdmesg='watch -n 0 -c "dmesg --color=always | tail --lines 30"'
 export LESS=-R
 x() {
 	if [[ -f "$1" ]]; then
