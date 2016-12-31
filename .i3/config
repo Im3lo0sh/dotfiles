@@ -20,7 +20,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -dmenu'
 
 # neofetch
-bindsym $sup+k exec xterm -hold -e /usr/bin/neofetch --image ~/Pictures/Profile.png --crop_mode fill --battery_num 0 --config ~/.config/neofetch/config
+bindsym $sup+k exec urxvt -hold -e /usr/bin/neofetch --image ~/Pictures/Profile.png --crop_mode fill
 
 # change focus
 bindsym $mod+Left focus left
@@ -106,10 +106,10 @@ mode "resize" {
     # Pressing left will shrink the window’s width. Pressing right will 
     # grow the window’s width. Pressing up will shrink the window’s 
     # height. Pressing down will grow the window’s height.
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 5 px or 5 ppt
+    bindsym Down resize grow height 5 px or 5 ppt
+    bindsym Up resize shrink height 5 px or 5 ppt
+    bindsym Right resize grow width 5 px or 5 ppt
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -122,10 +122,10 @@ set $power_control "[l]ock log[o]ut [s]uspend [h]ibernate [r]eboot [p]oweroff"
 mode $power_control {
     bindsym l exec ~/.i3/lock.sh; mode "default"
     bindsym o exec i3-msg exit; mode "default"
-    bindsym s exec gksudo pm-suspend; mode "default"
-    bindsym h exec gksudo pm-hibernate; mode "default"
-    bindsym r exec gksudo reboot; mode "default"
-    bindsym p exec gksudo poweroff; mode "default"
+    bindsym s exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Suspend  boolean:true; mode "default"
+    bindsym h exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Hibernate  boolean:true; mode "default"
+    bindsym r exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart; mode "default"
+    bindsym p exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop; mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -202,6 +202,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id udiskie -t
 exec --no-startup-id dropbox
 exec --no-startup-id trackma-qt
+exec --no-startup-id pulseaudio
+exec --no-startup-id caffeine
 # Music daemon
 exec --no-startup-id mpd ~/.config/mpd/mpd.conf
 exec --no-startup-id mpDris2

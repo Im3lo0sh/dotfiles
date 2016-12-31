@@ -55,4 +55,4 @@ fi
 #exec xterm -geometry 80x66+0+0 -name login
 export WINEARCH=win32
 export WINEPREFIX=~/Public/wine
-exec i3
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3
