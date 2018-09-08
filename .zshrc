@@ -1,12 +1,3 @@
-# Editor
-if  [ $TERM = "linux" ] ; then
-    export EDITOR=vim
-    alias vd='vimdiff'
-else
-    export EDITOR=nvim
-    alias vim='nvim'
-    alias vimdiff='nvim -d'
-fi
 # dircolors
 eval "`dircolors -b ~/.dircolors`"
 
@@ -24,18 +15,6 @@ alias dh='dirs -v'
 # REPORTTIME
 TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
 export REPORTTIME=5
-
-# openrc
-listd() { rc-status $1; }
-start() { sudo rc-service $1 start; }
-stop() { sudo rc-service $1 stop; }
-restart() { sudo rc-service $1 restart; }
-status() { sudo rc-service $1 status; }
-enabled() { sudo rc-update add $1 $2; listd $2 }
-disabled() { sudo rc-update del $1 $2; listd $2 }
-Start() { sudo rc-service $1 start; sudo rc-service $1 status; }
-Stop() { sudo rc-service $1 stop; sudo rc-service $1 status; }
-Restart() { sudo rc-service $1 restart; rc-service $1 status; }
 
 # general aliases and functions
 alias pg='echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND" && ps aux | grep --color=auto -i'
@@ -64,11 +43,6 @@ alias fhere='find . -name '
 alias diff='diff --color=auto'
 alias rm='rm -i'
 alias mv='mv -i'
-alias reboot='dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart'
-alias shutdown='dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop'
-alias poweroff='shutdown '
-alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Suspend  boolean:true'
-alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Hibernate  boolean:true'
 alias dmesg='dmesg --color=auto'
 alias wdmesg='watch -n 0 -c "dmesg --color=always | tail --lines 30"'
 export LESS=-R
