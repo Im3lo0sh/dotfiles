@@ -1,0 +1,1 @@
+cpupower frequency-info | grep asserted | sed  's/(asserted by call to kernel)//' | sed 's/current CPU frequency: //' | sed 's/ //g'

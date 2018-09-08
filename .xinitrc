@@ -48,11 +48,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#twm 
+#twm &
 #xclock -geometry 50x50-1+1 &
 #xterm -geometry 80x50+494+51 &
 #xterm -geometry 80x20+494-0 &
 #exec xterm -geometry 80x66+0+0 -name login
-export WINEARCH=win32
-export WINEPREFIX=~/Public/wine
-exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3
+exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+exec i3
