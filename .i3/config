@@ -20,7 +20,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -dmenu'
 
 # neofetch
-bindsym $sup+k exec urxvt -hold -e /usr/bin/neofetch --w3m ~/Pictures/Profile.png --crop_mode fill
+bindsym $sup+k exec urxvt -hold -e /usr/bin/neofetch --image ~/Pictures/Profile.png --crop_mode fill
 
 # change focus
 bindsym $mod+Left focus left
@@ -122,10 +122,10 @@ set $power_control "[l]ock log[o]ut [s]uspend [h]ibernate [r]eboot [p]oweroff"
 mode $power_control {
     bindsym l exec ~/.i3/lock.sh; mode "default"
     bindsym o exec i3-msg exit; mode "default"
-    bindsym s exec systemctl suspend; mode "default"
-    bindsym h exec systemctl hibernate; mode "default"
-    bindsym r exec systemctl reboot; mode "default"
-    bindsym p exec systemctl poweroff; mode "default"
+    bindsym s exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Suspend  boolean:true; mode "default"
+    bindsym h exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Hibernate  boolean:true; mode "default"
+    bindsym r exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart; mode "default"
+    bindsym p exec dbus-send --system --print-reply --dest="org.freedesktop.ConsoleKit" /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop; mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -153,13 +153,12 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86TouchpadToggle exec playerctl stop
 
 # Applications
-bindsym $sup+i exec /usr/bin/google-chrome-stable
-bindsym $sup+o exec /usr/bin/google-chrome-stable --incognito
+bindsym $sup+i exec google-chrome-stable
+bindsym $sup+o exec google-chrome-stable --incognito
 bindsym $sup+m exec java -jar /home/ali/Public/Minecraft.jar
 bindsym $sup+r exec urxvt -e /usr/bin/ranger
 bindsym $sup+n exec urxvt -e /usr/bin/ncmpcpp
 bindsym $sup+p exec caja
-
 # Borders
 for_window [class="^.*"] border pixel 2
 
@@ -196,8 +195,6 @@ bar {
          urgent_workspace   #333333 #900000 #ffffff
     }
 }
-# FUCKING POLKIT
-exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 
 # Applets
 exec --no-startup-id redshift-gtk
 exec --no-startup-id twmnd
@@ -205,8 +202,11 @@ exec --no-startup-id nm-applet
 exec --no-startup-id udiskie -t
 exec --no-startup-id dropbox
 exec --no-startup-id trackma-qt
+exec --no-startup-id pulseaudio
 exec --no-startup-id caffeine
-exec --no-startup-id steam-native
+# Music daemon
+exec --no-startup-id mpd ~/.config/mpd/mpd.conf
+exec --no-startup-id mpDris2
 # ScreenSaver
 exec --no-startup-id xautolock -time 5 -locker /usr/bin/i3lock-fancy
 # Compositor
