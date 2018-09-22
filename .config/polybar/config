@@ -42,7 +42,7 @@ module-margin-right = 1
 module-margin-left = 1
 
 modules-right = mail weather backlight pulseaudio battery date
-modules-left = i3 temperature memory cpu usage xkeyboard mpd
+modules-left = i3 temperature memory cpufreq cpu xkeyboard mpd
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -59,6 +59,7 @@ tray-padding = 0
 
 font-0 = "Inconsolata for Powerline:size=9;0"
 font-1 = "FontAwesome:size=9;0"
+font-2 = "xos4 Terminess Powerline:size=9:antialias=false;0"
 
 [module/xwindow]
 type = internal/xwindow
@@ -169,7 +170,7 @@ enable-scroll = true
 
 [module/date]
 type = internal/date
-date =  %A %d %b  %H:%M %p
+date =  %a %d %b  %I:%M %p
 interval = 5
 format-underline = ${colors.darkgreen}
 format-foreground = ${colors.foreground}
@@ -198,7 +199,7 @@ type = internal/battery
 battery = BAT0
 adapter = AC
 full-at = 100
-interval = 10
+interval = 5
 
 format-charging = <animation-charging> <label-charging>
 label-charging = %percentage%%
@@ -263,6 +264,38 @@ label-underline = ${colors.darkgreen}
 label-foreground = ${colors.orange}
 label-padding = 1
 
+[module/cpu]
+type = internal/cpu
+interval = 1
+format = <label> <ramp-coreload>
+label =  %percentage%%
+format-underline = ${colors.darkgreen}
+format-padding = 1
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = ${colors.green}
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = ${colors.green}
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = ${colors.green}
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = ${colors.green}
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = ${colors.orange}
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = ${colors.orange}
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = ${colors.red}
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = ${colors.red}
+
 [module/weather]
 type = custom/script
 exec = ~/.config/polybar/scripts/weather
@@ -270,17 +303,9 @@ tail = true
 format-padding = 1
 format-underline = ${colors.darkgreen}
 
-[module/cpu]
+[module/cpufreq]
 type = custom/script
 exec = ~/.config/polybar/scripts/cpufreq
-tail = true
-format-prefix = " "
-format-padding = 1
-format-underline = ${colors.darkgreen}
-
-[module/usage]
-type = custom/script
-exec = ~/.config/polybar/scripts/cpu_usage
 tail = true
 format-prefix = " "
 format-padding = 1
