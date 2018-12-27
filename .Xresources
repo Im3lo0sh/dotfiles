@@ -1,20 +1,21 @@
 ! Font settings
-URxvt.font: xft:Inconsolata for Powerline:antialias=true:Medium:pixelsize=14
+!URxvt.font: xft:Inconsolata for Powerline:antialias=true:Medium:pixelsize=14
+URxvt.font: xft:xos4 Terminess Powerline:antialias=true:Medium:pixelsize=14
 xterm*faceName: xft:Inconsolata for Powerline:antialias=true:Medium:pixelsize=14
-URxvt.letterSpace: 1
+!URxvt.letterSpace: 1
 
 ! Scrollbar
-URxvt.scrollBar: false
+URxvt.scrollBar: true
 URxvt.scrollBar_right: true
 URxvt.scrollstyle: plain
-URxvt.scrollColor: #2d2d2d
+URxvt.scrollColor: #ebdbb2
 ! Transparency
 ! URxvt.transparent: true
 URxvt.shading: 9
 
 ! Clickable links
-URxvt.perl-ext-common: default,matcher,selection-to-clipboard,keyboard-select
-URxvt.url-launcher: /usr/bin/google-chrome-stable
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard,keyboard-select,osc-xterm-clipboard
+URxvt.url-launcher: /usr/bin/chromium
 URxvt.matcher.button: 1
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-u:     perl:url-select:select_next

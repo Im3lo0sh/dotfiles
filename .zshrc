@@ -12,6 +12,9 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 alias dh='dirs -v'
 
+# LANG
+export LANG="en_US.UTF8"
+
 # REPORTTIME
 TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
 export REPORTTIME=5
@@ -214,3 +217,10 @@ todo() {
 calc() {
     echo "scale=3;$@" | bc -l
 }
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/doc/pkgfile/command-not-found.zsh
+powerline-daemon -q
+source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh

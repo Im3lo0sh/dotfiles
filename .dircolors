@@ -95,11 +95,11 @@ EXEC 01;32
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
 # If you use DOS-style suffixes, you may want to uncomment the following:
-#.cmd 01;32 # executables (bright green)
-#.exe 01;32
-#.com 01;32
-#.btm 01;32
-#.bat 01;32
+.cmd 01;32 # executables (bright green)
+.exe 01;32
+.com 01;32
+.btm 01;32
+.bat 01;32
 # Or if you want to colorize scripts even if they do not have the
 # executable bit actually set.
 #.sh 01;32
@@ -108,6 +108,7 @@ EXEC 01;32
 .tar 01;31
 .tgz 01;31
 .arc 01;31
+.apk 01;31
 .arj 01;31
 .taz 01;31
 .lha 01;31
@@ -215,3 +216,23 @@ EXEC 01;32
 .oga 00;36
 .spx 00;36
 .xspf 00;36
+
+# documents
+.doc 1;30
+.docx 1;30
+.rtf 1;30
+.odt 1;30
+.dot 1;30
+.dotx 1;30
+.ott 1;30
+.xls 1;30
+.xlsx 1;30
+.ods 1;30
+.ots 1;30
+.ppt 1;30
+.pptx 1;30
+.odp 1;30
+.otp 1;30
+.fla 1;30
+.psd 1;30
+.pdf 1;30
